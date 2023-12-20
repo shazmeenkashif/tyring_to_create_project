@@ -38,5 +38,13 @@ class UserController extends Controller
         }
     
     }
-
+    public function updateUser(string $id){
+        $user= DB::table("users")->where("id", $id)->get();
+        //dd($user);
+        return view('updateUser', ['data'=> $user]);
+    }
+public function update(string $id){
+    $user= DB::table("users")->where("id", $id)->get();
+    return $user;
+}
 }

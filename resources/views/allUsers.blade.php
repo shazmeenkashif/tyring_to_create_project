@@ -18,6 +18,7 @@
             <th scope="col">Email</th>
             <th scope="col">Age</th>
             <th scope="col">View</th>
+            <th scope="col">Update</th>
           </tr>
         </thead>
         <tbody>
@@ -29,7 +30,7 @@
             <td>{{$users->email}}</td>
             <td>{{$users->age}}</td>
             <td><a href="{{route('view.user',$users->id)}}" class="btn btn-primery btn-sm">View</td>
-           
+              <td><a href="{{route('updateUser',$users->id)}}" class="btn btn-primery btn-sm">Update</td>
           </tr>
           @endforeach
         </tbody>

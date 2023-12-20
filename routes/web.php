@@ -10,3 +10,5 @@ Route::get('/user/{id}', [UserController::class,'showSingleUser'])->name('view.u
 // Route::get('/user',[UserController::class,'showUser'] );
 Route::post('/add', [UserController::class, 'addUser'])->name('addUser');
 Route::view('newuser', '/addUser');
+Route::get('/update/{id}', [UserController::class,'update'])->name('update.user');
+Route::get('/updatepage/{id}', [UserController::class,'updateUser'])->name('updateUser');
