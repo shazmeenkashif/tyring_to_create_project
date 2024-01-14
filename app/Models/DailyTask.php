@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class DailyTask extends Model
 {
-    use HasFactory;
-    protected $fillable = ['task_name','task_text'];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    protected $fillable = ['task_name','task_text','user_id'];
 }

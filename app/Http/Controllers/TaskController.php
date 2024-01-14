@@ -12,7 +12,13 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+       
+        return response()->json([
+            'status'=> 'Success',
+            'message'=>'All tasks',
+            'data'=> DailyTask::all()
+        
+        ]);
     }
 
     /**
@@ -28,29 +34,28 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        if($request=null){
-            return response()->json(["message"=> "no data found","code"=> 400]);
-        }
-        else{
-            return response()->json(["message"=> "hitting the api","code"=> ]);
-        }
-        
-       
-        // $task = new DailyTask;
-        // $task->task_name= $request->name;
-        // $task->task_text=$request->text; 
-        // $task->save();
-        // if($task!=null){
-        //     return response()->json(["message"=>'data added'],200);
-        // }
-        // else{
-        //     return response()->json(['message'=> 'error'],401);
-        // }
-    
+        $request->validate([
+            'task_name' => 'required',
+            'task_text' => 'required',
+            'user_id'=> 'required',
 
-        
+        ]);
+        DailyTask::create([
+            'task_name' => $request->task_name,
+            'task_text' => $request->task_text,
+            'user_id'=>$request->user_id
+        ]);
+        return response()->json([
+            'status'=> 'success',
+            'message'=> 'data added sucessfully',
+        ]);
 
-        
+
+
+
+
+
+
     }
 
     /**

@@ -19,3 +19,4 @@ use App\Http\Controllers\TaskController;
 //     return $request->user();
 // });
 Route::post("/task/create", [TaskController::class,"store"]);
+Route::get("/task/get", [TaskController::class,"index"]);
