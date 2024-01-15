@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,8 @@ use App\Http\Controllers\TaskController;
 //     return $request->user();
 // });
 Route::post("/task/create", [TaskController::class,"store"]);
+
+    // Other API routes...
+
 Route::get("/task/get", [TaskController::class,"index"]);
+Route::middleware('api')->post('/user/login',[UserController::class,"loginUser"]);

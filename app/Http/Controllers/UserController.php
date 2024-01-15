@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\user;
 
 
 class UserController extends Controller
@@ -46,5 +47,39 @@ class UserController extends Controller
 public function update(string $id){
     $user= DB::table("users")->where("id", $id)->get();
     return $user;
+}
+public function loginUser(Request $request){
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:8'
+    ]);
+    User::create([
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+
+    ]);
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Login Successfully'
+    ]);
+}
+public function signUp(Request $request){
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|min:8',
+        'name'=>'required',
+        'contact'=>'required|max:11'
+
+    ]);
+    
+    User::create([
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+
+    ]);
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Login Successfully'
+    ]);
 }
 }
