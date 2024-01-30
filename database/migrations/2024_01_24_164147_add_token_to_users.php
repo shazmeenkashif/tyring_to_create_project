@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('daily_tasks', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id'); // Use an appropriate default value
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('token');
+            //
         });
     }
 
@@ -21,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

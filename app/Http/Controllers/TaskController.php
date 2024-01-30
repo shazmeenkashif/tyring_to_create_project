@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DailyTask;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -34,20 +35,22 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $user=Auth::user();
         $request->validate([
             'task_name' => 'required',
             'task_text' => 'required',
-            'user_id'=> 'required',
+            
 
         ]);
-        DailyTask::create([
+       $task= DailyTask::create([
             'task_name' => $request->task_name,
             'task_text' => $request->task_text,
-            'user_id'=>$request->user_id
+            'user_id'=>$user->id,
         ]);
         return response()->json([
             'status'=> 'success',
             'message'=> 'data added sucessfully',
+            'data'=>$task,
         ]);
 
 
@@ -79,7 +82,33 @@ class TaskController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = Auth::user();
+
+        // Find the task
+        $task = DailyTask::findOrFail($id);
+
+        // Check if the task belongs to the authenticated user
+        if ($task->user_id !== $user->id) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        // Validation
+        $request->validate([
+            'task_name' => 'required',
+            'task_text' => 'required',
+           
+        ]);
+
+        // Update the task
+        $task->update([
+            
+            'task_name' => $request->task_name,
+            'task_text' => $request->task_text,
+            'user_id'=>$user->id,
+        ]);
+
+        // Return response
+        return response()->json(['task' => $task], 200);
     }
 
     /**
